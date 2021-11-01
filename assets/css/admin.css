@@ -51,7 +51,6 @@
 .header-main__user {
     display: flex;
     align-items: center;
-    margin-right: 30px;
 }
 .header-main__user__img {
     width: 40px;
@@ -128,6 +127,10 @@
     border: none;
 }
 
+.table td {
+    min-width: 100px;
+    max-width: 300px;
+}
 /* End: Main */
 
 /* Page: category */

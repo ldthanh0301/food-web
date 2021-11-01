@@ -1,32 +1,28 @@
 <?php 
     require_once './auth/auth.php';
-    
-    require_once '../models/Order.php';
-    $Order = new Order();
-    $orders = $Order->getOrders();
+    if (!isset($_SESSION['role']) || $_SESSION['role'] < 3) {
+        header( 'HTTP/1.0 403 Forbidden', TRUE, 403 );
+        die();
+    }
+?>
+<?php
+    require_once '../models/Staff.php';
+    $Staff = new Staff();
+    $staffs = $Staff->getStaffs();
     if(isset($_GET['status'])) {
         $status = $_GET['status'];
-        $orders= $Order->getTypeOrder($status);
+        $staffs= $Staff->getTypeStaff($status);
     }
-
-    // hủy đơn hàng 
+    // xóa nhân viên
     if ($_SERVER["REQUEST_METHOD"] =='POST') {
         $id = $_POST['deleteId'];
-        $result = $Order->delete($id);
+        $result = $Staff->delete($id);
 
         if ($result) {
-            // $orders = $Order->getTypeOrder(0);
-            $countPending = count($Order->getTypeOrder(0));
-            $countApproved = count($Order->getTypeOrder(1));
-            $countDelivering = count($Order->getTypeOrder(2));
-            $countDelivered = count($Order->getTypeOrder(3));
+            $staffs = $Staff->getStaffs();
         }
     }
-    // $countStatus = $Order->countOrders();
-    $countPending = count($Order->getTypeOrder(0));
-    $countApproved = count($Order->getTypeOrder(1));
-    $countDelivering = count($Order->getTypeOrder(2));
-    $countDelivered = count($Order->getTypeOrder(3));
+    $countPosition =$Staff->countStaffs();
 ?> 
 <!DOCTYPE html>
 <html lang="en">
@@ -55,53 +51,75 @@
                     <div class="row gx-3">
                         <div class="col col-3">
                             <a href='?status=0' class="dashboard-top__info">
-                                <div>Chờ duyệt</div>
-                                <span style="font-size:1.2rem;color:var(--clr-success)"><?php echo $countPending?></span>
+                                <div>Giao Hàng</div>
+                                <span style="font-size:1.2rem;color:var(--clr-success)"><?php echo $countPosition[0]?></span>
                             </a>
                         </div>
                         <div class="col col-3">
                             <a href='?status=1' class="dashboard-top__info">
-                                <div>Đã duyệt</div>
-                                <span style="font-size:1.2rem;color:var(--clr-success)"><?php echo $countApproved?></span>
+                                <div>Kiểm duyệt</div>
+                                <span style="font-size:1.2rem;color:var(--clr-success)"><?php echo $countPosition[1]?></span>
                             </a>
                         </div>
                         <div class="col col-3">
                             <a href="?status=2" class="dashboard-top__info">
-                                <div>Đang giao</div>
-                                <span style="font-size:1.2rem;color:var(--clr-success)"><?php echo $countDelivering?></span>
+                                <div>Quản lý</div>
+                                <span style="font-size:1.2rem;color:var(--clr-success)"><?php echo $countPosition[2]?></span>
                             </a>
                         </div>
                         <div class="col col-3">
                             <a href="?status=2" class="dashboard-top__info">
-                                <div>Đã giao</div>
-                                <span style="font-size:1.2rem;color:var(--clr-success)"><?php echo $countDelivered?></span>
+                                <div>Quản trị</div>
+                                <span style="font-size:1.2rem;color:var(--clr-success)"><?php echo $countPosition[3]?></span>
 
                             </a>
                         </div>
                     </div>
                 </div>
+                <div>
+                    <a href="./add-staff.php" class='btn btn-primary mb-4'>Thêm nhân viên</a>
+                </div>
                 <table class="table no-border">
                     <thead>
                         <th>STT</th>
-                        <th>Mã đơn hàng</th>
-                        <th>Số lượng</th>
-                        <th>Tổng tiền</th>
-                        <th>Mã khách hàng</th>
+                        <th>Mã nhân viên</th>
+                        <th>Họ và Tên</th>
+                        <th>Chức vụ</th>
+                        <th>Địa chỉ</th>
+                        <th>Số điện thoại</th>
                         <th>Tùy chọn</th>
                     </thead>
                     <tbody>
                         <?php
                             $i=1;
-                            foreach($orders as $order) {
+                            foreach($staffs as $staff) {
+                                $chucvu ='';
+                                switch($staff['ChucVu']) {
+                                    case 0: 
+                                        $chucvu = "Giao hàng";
+                                        break;
+                                    case 1:
+                                        $chucvu = "Kiểm duyệt";
+                                        break;
+                                    case 2:
+                                        $chucvu = "Quản lý";
+                                        break;
+                                    case 3:
+                                        $chucvu = "Quản trị";
+                                        break;
+                                }
                                 echo "<tr>
                                     <td>{$i}</td>
-                                    <td>{$order['SoDonDH']}</td>
-                                    <td>{$order['SoLuong']}</td>
-                                    <td>{$order['GiaDatHang']}</td>
-                                    <td>{$order['HoTenKH']}</td>
+                                    <td>{$staff['MSNV']}</td>
+                                    <td>{$staff['HoTenNV']}</td>
+                                    <td>{$chucvu}</td>
                                     <td>
-                                        <a href='./detail-order.php?id={$order['SoDonDH']}' class='btn btn-primary btn-sm' >Chi tiết đơn hàng</a>
-                                        <button onclick=deleteProduct('$order[SoDonDH]') class='btn btn-danger btn-sm'>Hủy</button>
+                                        {$staff['DiaChi']}
+                                    </td>
+                                    <td>{$staff['SoDienThoai']}</td>
+                                    <td>
+                                        <a href='./edit-staff.php?id={$staff['MSNV']}' class='btn btn-primary btn-sm' >Chỉnh sửa</a>
+                                        <button onclick=deleteStaff('$staff[MSNV]') class='btn btn-danger btn-sm'>Xóa</button>
                                     </td>
                                 </tr>";
                                 $i++;
@@ -117,7 +135,7 @@
         <div class="modal fade" id="confirmDelete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
             <!-- form xóa xác nhận xóa sản phẩm -->
-            <form action="" method="post" id="formConfirmDelete" class="modal-content">
+            <form action="" method="POST" id="formConfirmDelete" class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Xác nhận</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -125,7 +143,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    Bạn có chắc muốn xóa sản phẩm này??
+                    Bạn có chắc muốn xóa nhân viên này??
                     <input type="text" id="deleteId" name="deleteId" hidden>
                 </div>
                 <div class="modal-footer">
@@ -143,7 +161,8 @@
     <script>
         var formConfirmDelete = document.getElementById('formConfirmDelete');
         var test ;
-        function deleteProduct(id) {
+        function deleteStaff(id) {
+            console.log(id);
             $('#confirmDelete').modal({
                 show:true
             })
