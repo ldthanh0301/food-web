@@ -95,6 +95,14 @@
         $product =$Product->detail($MSHH);
         $images = $Product->getImages($MSHH);
     }
+    // lấy số lượng giỏ hàng navbar
+    $count=0;
+    if(isset($_SESSION['cart'])){
+        $count = count($_SESSION['cart']);
+    }
+    else{
+        $count = 0;
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -109,6 +117,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./assets/css/main.css">
     <link rel="stylesheet" href="./assets/css/base.css">
+    <link rel="stylesheet" href="./assets/css/newstyles.css">
 </head>
 <body>
     <div id="app">

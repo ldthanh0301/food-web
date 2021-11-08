@@ -1,11 +1,20 @@
 <?php 
     require_once './database/database.php';
-
+    
     $db = Database::getInstance();
     $con = $db->connectDB;
     //lấy loai hàng hóa
     $result = $con->query('SELECT * FROM `hanghoa`as hh JOIN hinhhanghoa as hhh ON hh.MSHH = hhh.MSHH');// 
     $products =$result->fetch_all(MYSQLI_ASSOC);
+
+    session_start();
+    $count=0;
+    if(isset($_SESSION['cart'])){
+        $count = count($_SESSION['cart']);
+    }
+    else{
+        $count = 0;
+    }
  
 ?>
 <!DOCTYPE html>
@@ -21,6 +30,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./assets/css/main.css">
     <link rel="stylesheet" href="./assets/css/base.css">
+    <link rel="stylesheet" href="./assets/css/newstyles.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
     <div id="app">
@@ -35,8 +47,7 @@
 
                 <!-- Begin:Main content -->
                 <div class="main-content">
-                    <span class=main-content__title>Top sản phẩm bán chạy</span>
-                    <span class=main-content__sub-title>Đừng bỏ lỡ hãy mua ngay</span>
+                    <span class="title-list-product">Danh sách sản phẩm</span>
                     <!--  List product -->
                     <div class="list-products">
                         <div class="row">
@@ -48,7 +59,7 @@
                                     </a>
                                     <div class="product-card__option">
                                         <span class="product-card__price"><?php echo $product['Gia'] ?></span>
-                                        <a href="#"><button class="btn btn-sm btn-primary">Thêm vào giỏ</button></a>
+                                        <button class="btn btn-sm btn-primary add-cart" id-product="<?php echo $product['MSHH'] ?>">Thêm vào giỏ</button>
                                     </div>
                                 </div>
                             </div>
@@ -57,84 +68,34 @@
                     </div>
                 </div>
                 <hr>
-                <!-- deal product -->
-                <div class="main-content">
-                    <span class=main-content__title>Các chương trình khuyến mãi</span>
-                    <span class=main-content__sub-title>Đừng bỏ lỡ các chương trình khuyến mãi Hot tại Yame.vn</span>
-                    <div class="list-products-sale">
-                        <div class="row">
-                            <div class="col-6">
-                                <div class="product-sale">
-                                    <img src="./assets/img/products-sale/hinh1.jpg" alt="ảnh" class="product-sale__img">
-                                    <span class="product-sale__title">FLASH SALE THÁNG 10</span>
-                                    <span class="product-sale__info">Time: 11 - 14/10/2021</span>
-                                </div>
-                            </div>
-                            <div class="col-6">
-                                <div class="product-sale">
-                                    <img src="./assets/img/products-sale/hinh2.jpg" alt="ảnh" class="product-sale__img">
-                                    <span class="product-sale__title">FLASH SALE THÁNG 10</span>
-                                    <span class="product-sale__info">Time: 11 - 14/10/2021</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <hr>
-                <!-- socials activity -->
-                <div class="main-content">
-                    <a class="main-content__link mb-4" href="#"><i class="fas fa-sync-alt"></i>Xem thêm nhiều tin khác</a>
-                    <img  class="main-content__img img-fluid mb-3" src="./assets/img/socials/intagram.jpg" alt="ảnh">
-                    <div class="row row-sm mb-2">
-                        <div class="col-2 col-sm">
-                            <img class="img-fluid" src="./assets/img/products//vuong/hinh4.jpg" alt="ảnh">
-                        </div>
-                        <div class="col-2 col-sm">
-                            <img class="img-fluid" src="./assets/img/products/vuong/hinh8.jpg" alt="ảnh">
-                        </div>
-                        <div class="col-2 col-sm">
-                            <img class="img-fluid" src="./assets/img/products/vuong/hinh3.jpg" alt="ảnh">
-                        </div>
-                        <div class="col-2 col-sm">
-                            <img class="img-fluid" src="./assets/img/products/vuong/hinh4.jpg" alt="ảnh">
-                        </div>
-                        <div class="col-2 col-sm">
-                            <img class="img-fluid" src="./assets/img/products/vuong/hinh5.jpg" alt="ảnh">
-                        </div>
-                        <div class="col-2 col-sm">
-                            <img class="img-fluid" src="./assets/img/products/vuong/hinh6.jpg" alt="ảnh">
-                        </div>
-                    </div>
-                    <div class="row row-sm mb-2">
-                        <div class="col-2 col-sm">
-                            <img class="img-fluid" src="./assets/img/products//vuong/hinh4.jpg" alt="ảnh">
-                        </div>
-                        <div class="col-2 col-sm">
-                            <img class="img-fluid" src="./assets/img/products/vuong/hinh8.jpg" alt="ảnh">
-                        </div>
-                        <div class="col-2 col-sm">
-                            <img class="img-fluid" src="./assets/img/products/vuong/hinh3.jpg" alt="ảnh">
-                        </div>
-                        <div class="col-2 col-sm">
-                            <img class="img-fluid" src="./assets/img/products/vuong/hinh4.jpg" alt="ảnh">
-                        </div>
-                        <div class="col-2 col-sm">
-                            <img class="img-fluid" src="./assets/img/products/vuong/hinh5.jpg" alt="ảnh">
-                        </div>
-                        <div class="col-2 col-sm">
-                            <img class="img-fluid" src="./assets/img/products/vuong/hinh6.jpg" alt="ảnh">
-                        </div>
-                    </div>
-                </div>
-                <!-- End:Main content -->
+               
+           
+               
             </div>
         </main>
         <!-- Footer -->
         <?php include_once('./partitions/footer.php')?>
     </div>
     <!-- Boostrap Script -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+    <script type="text/javascript">
+        $(document).on('click','.add-cart',function(){
+            var idProductAddcart = $(this).attr('id-product');
+            console.log('123');
+            $.ajax({
+                url:'./ajax/ajaxAddCart.php',
+                type:"post",
+                data:{
+                    'id-productAddCart' : idProductAddcart,
+                },
+                success:function(fetch_result){
+                    $('#addcart-nav').html(fetch_result);           
+                },
+            })
+        })
+    </script>
 </body>
 </html>

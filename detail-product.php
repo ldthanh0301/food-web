@@ -6,6 +6,14 @@
         $product =$Product->detail($id);
         $images = $Product->getImages($id);
     }
+    session_start();
+    $count=0;
+    if(isset($_SESSION['cart'])){
+        $count = count($_SESSION['cart']);
+    }
+    else{
+        $count = 0;
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -20,6 +28,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./assets/css/main.css">
     <link rel="stylesheet" href="./assets/css/base.css">
+    <link rel="stylesheet" href="./assets/css/newstyles.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
     <div id="app">
@@ -56,7 +67,8 @@
                             </div>
                             <hr>
                             <div class="product-info__control">
-                                <button class="btn btn-secondary">Thêm vào giỏ hàng</button>
+                                
+                                <button class="btn btn-secondary add-cart" id-product="<?php echo $product['MSHH'] ?>">Thêm vào giỏ</button>
                                 <button onclick="confirmOrder('<?php echo $product['MSHH']?>')" class="btn btn-primary">Mua ngay</button>
                             </div>
                         </div>
@@ -95,7 +107,7 @@
         <?php include_once('./partitions/footer.php')?>
     </div>
     <!-- Boostrap Script -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <script>
@@ -110,6 +122,22 @@
                 deleteId.value = id
             };
         }
+    </script>
+    <script type="text/javascript">
+        $(document).on('click','.add-cart',function(){
+            var idProductAddcart = $(this).attr('id-product');
+            console.log('123');
+            $.ajax({
+                url:'./ajax/ajaxAddCart.php',
+                type:"post",
+                data:{
+                    'id-productAddCart' : idProductAddcart,
+                },
+                success:function(fetch_result){
+                    $('#addcart-nav').html(fetch_result);           
+                },
+            })
+        })
     </script>
 </body>
 </html>

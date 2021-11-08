@@ -26,8 +26,9 @@
 #header .navbar {
     display: flex;
     flex: 1;
-    place-content: space-around;
+    /* place-content: space-around; */
     padding: 0;
+    margin-left: 20px;
 }
 .navbar__menu {
     display: flex;
@@ -129,7 +130,7 @@
 
 /* Begin: Main */
 #main {
-    padding: 15px 0;
+    /* padding: 15px 0; */
 }
 /* slider */
 .slider-item {
@@ -169,6 +170,7 @@
 }
 .main-content__title {
     font-size: 24px;
+    font-weight: 600;
 }
 .main-content__sub-title,.main-content__link {
     font-size: 16px;
@@ -244,11 +246,11 @@
     text-decoration: none;
     color: #00ffff;
 }
-.footer-header__link:hover {
+/* .footer-header__link:hover {
     text-decoration: none;
     color: #00ffff;
     opacity: 0.6;
-}
+} */
 .contact {
     display: flex;
     place-content: space-between;
