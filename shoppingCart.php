@@ -34,54 +34,16 @@
 <body>
     <?php include_once('./partitions/header.php')?>
     <h1 class="shopping-cart-title">SHOPPING CART</h1>
-    <div class="container--cart row row-justify-evenly"  id="result-fetch-cart">
-        <table class="table--cart">
-                <tr class="table--cart__row">
-                    <th class="header--table w-product">Product</th>
-                    <th class="header--table">Quantity</th>
-                    <th class="header--table">Price</th>
-                    <th class="header--table">SubTotal</th>
-                </tr>
-                <!-- <?php //if(!empty($_SESSION['cart']))//{
-                //foreach($_SESSION['cart'] as $cart_item){ 
-                    //if($cart_item['id_product']!=null){
-                    //$id_product = $cart_item['id_product']; 
-                    //$product = getProductToFetchCart($id_product);
-                    
-                    ?> -->
-                <tr>
-                    <td class="cart--product">
-                        <div class="cart--product__img">
-                            <img src="./assets/img/products/food1.jpg" alt="" >
-                        </div>
-                        
-                        <div class="cart--product__desc">
-                            <p>Hamburgur</p>
-                            <button href="#" class="remove-from-cart"trigger-remove="remove">Remove</button>
-                           
-                        </div>
-                    </td>
-                    <td class="cart--quantity table-data-cart">
-                            
-                        <input type="number" value="1" name="quantity" 
-                                class="quantity-product-cart"  autocomplete = "off" min="1">
-                    </td>
-                   
-                    <td class="cart--price table-data-cart">
-                        <p>70000</p>
-                    </td>
-                    <td class="cart--subtotal table-data-cart">
-                        <p type="number" class="subtotal" >70000</p>
-                    </td>
-                    <!-- <td class="cart--choose table-data-cart">
-                        <input type="checkbox" value="1" class="check-cart" name="choose" id="choose" checked="checked" >
-                    </td> -->
-                </tr>
-   
-        
-            </table>
-       
-          
+    <div class="container"  id="result-fetch-cart">
+        <div class="row row-justify-evenly">
+            <!-- lấy danh sách sản phẩm trong giỏ hàng -->
+            <?php 
+                include_once('./ajax/displayCarts.php')
+            ?>      
+        </div>
+        <hr>
+        <button class="btn btn-danger btn-lg float-right">Đặt hàng </button>     
+        <div class="clearfix mb-4"></div>     
     </div>
 
 
@@ -135,9 +97,34 @@
             arrows: true,
             prevArrow:$('.prev-item-arrival'),
             nextArrow:$('.next-item-arrival')
-           
         });
+        function handleRemoveProductFromCart(index) {
+            // xóa sản phẩm
+            $.get("http://localhost/food-web/ajax/cart.php",{action:'remove',index:index},function(carts) {
+                let root= $('#table_list_item');
+                carts = JSON.parse(carts);
+                if(carts.status ==0) {
+                    alert(carts.message);
+                    return 0
+                }
+                // chỉ lại giỏi hàng TRên header 
+                addListProductToCart(carts)
+                // hiển thị giỏi hàng chính
+                displayCarts(carts,root);
+            })
+        }
+        function calTotalPrice(e){
+            console.log(e.dataset.index)
+            let index = e.dataset.index;
+            let quantity = e.value;
+            
+            $.get('http://localhost/food-web/ajax/cart.php',{action:'update',index:index,quantity:quantity},function(data) {
+                $('#result-fetch-cart').html(data);
+                // location.reload();
+            })
+        }
+
     </script>
-   
+   <script src="./assets/js/main.js"></script>
 </body>
 </html>

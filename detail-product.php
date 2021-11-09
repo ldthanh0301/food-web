@@ -1,4 +1,6 @@
 <?php 
+    session_start();
+
     if($_GET['id']) {
         require_once './models/Product.php';
         $id = $_GET['id'];
@@ -6,7 +8,6 @@
         $product =$Product->detail($id);
         $images = $Product->getImages($id);
     }
-    session_start();
     $count=0;
     if(isset($_SESSION['cart'])){
         $count = count($_SESSION['cart']);
@@ -31,6 +32,8 @@
     <link rel="stylesheet" href="./assets/css/newstyles.css">
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
 </head>
 <body>
     <div id="app">
@@ -38,7 +41,7 @@
         <?php include_once('./partitions/header.php')?>
         <!-- main -->
         <main id="main">
-        <div class="container-fluid">
+        <div class="container">
                 <div class="row">
                     <div class="col-6">
                         <div class="product-review">
@@ -47,7 +50,7 @@
                     </div>
                     <div class="col-6">
                         <div class="product-info">
-                            <h1 class="product-info__title"><?php echo $product["TenHH"]?></h1>
+                            <h1 class="product-info__title"><?php echo $product['TenHH']?></h1>
                             <hr>
                             <div class="product-info__price">
                                 <h6>Giá sản phẩm</h6>
@@ -67,8 +70,7 @@
                             </div>
                             <hr>
                             <div class="product-info__control">
-                                
-                                <button class="btn btn-secondary add-cart" id-product="<?php echo $product['MSHH'] ?>">Thêm vào giỏ</button>
+                                <button class="btn btn-secondary add-cart" onclick="addToCart('<?php echo $product['MSHH']?>')">Thêm vào giỏ</button>
                                 <button onclick="confirmOrder('<?php echo $product['MSHH']?>')" class="btn btn-primary">Mua ngay</button>
                             </div>
                         </div>
@@ -110,6 +112,9 @@
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <!-- mainjs -->
+    <script src="./assets/js/main.js"></script>
+
     <script>
         var formConfirm = document.getElementById('formConfirm');
         function confirmOrder(id) {
@@ -122,22 +127,6 @@
                 deleteId.value = id
             };
         }
-    </script>
-    <script type="text/javascript">
-        $(document).on('click','.add-cart',function(){
-            var idProductAddcart = $(this).attr('id-product');
-            console.log('123');
-            $.ajax({
-                url:'./ajax/ajaxAddCart.php',
-                type:"post",
-                data:{
-                    'id-productAddCart' : idProductAddcart,
-                },
-                success:function(fetch_result){
-                    $('#addcart-nav').html(fetch_result);           
-                },
-            })
-        })
     </script>
 </body>
 </html>

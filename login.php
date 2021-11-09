@@ -20,7 +20,7 @@
             $_SESSION['timeout'] = time();
             $_SESSION['username'] = $customer['username'];
             $_SESSION['HoTenKH'] = $customer['HoTenKH'];
-            
+            session_id();
             header('Location: ./index.php');
         }else {
             $msg = 'Sai tài khoản hoặc mật khẩu';

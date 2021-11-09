@@ -29,14 +29,45 @@
                         <div class="header-option">
                             <ul class="header-option__list">
                                 
-                                <li class="header-option__item" id="addcart-nav">
+                                <li class="header-option__item cart-icon" id="addcart-nav">
                                     <a href="shoppingCart.php" class="header-option__item__link cart-nav-bar">
                                         <i class="header-option__item__icon fas fa-shopping-bag"></i>
                                         <div id="notification-add-cart">
                                             <p><?php echo $count ?></p>
-                                           
                                         </div>
                                     </a>
+                                    <div class="cart">
+                                        <ul id="cart-list-product"  class="cart_list">
+                                            <?php 
+                                                if (count($_SESSION['cart']) ==0) {
+                                                    echo "<div class=\"cart_item_null\">Giỏ hàng đang trống</div>";
+                                                } else {
+                                                    $index = 0;
+                                                    foreach($_SESSION['cart'] as $cartItem) {
+                                            ?>   
+                                                    <li class="cart_item">
+                                                        <a href="#" class="cart_link">
+                                                            <img src="./products-img/<?php echo $cartItem['images'][0]['TenHinh']?>" class="cart_product_image"/>
+                                                            <div class="cart_product">
+                                                                <span class="cart_product_name"><?php echo $cartItem['name']?></span>
+                                                                <span class="cart_product_price"><?php echo $cartItem['price']?>đ</span>
+                                                            </div>
+                                                        </a>
+                                                        <button onclick="removeProductFromCart('<?php echo $index?>')" class="cart_link_delete">
+                                                            <i class="far fa-times-circle"></i>
+                                                        </button>
+                                                    </li>
+                                            <?php   
+                                                        $index++;
+                                                    }
+                                                }
+                                            ?>
+                                        </ul>
+                                        <hr>
+                                        <div>
+                                            <a href="./shoppingCart.php" class="btn btn-sm btn-danger float-right">Chi tiết giỏ hàng</a>
+                                        </div>
+                                    </div>
                                 </li>
                                
                                 <li class="dropdown header-option__item">

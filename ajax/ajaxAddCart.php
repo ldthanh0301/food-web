@@ -32,10 +32,9 @@
 
                
                     
-                    <a href="#" class="header-option__item__link cart-nav-bar">
-                        <i class="header-option__item__icon fas fa-shopping-bag"></i>
-                        <div id="notification-add-cart">
-                            <p><?php echo $count ?></p>                                          
-                        </div>
-                    </a>
-                
+<a href="#" class="header-option__item__link cart-nav-bar">
+    <i class="header-option__item__icon fas fa-shopping-bag"></i>
+    <div id="notification-add-cart">
+        <p><?php echo $count ?></p>                                          
+    </div>
+</a>
