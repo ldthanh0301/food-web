@@ -1,5 +1,5 @@
 function addToCart(id) {
-    $.get("http://localhost/food-web/ajax/cart.php",{action:'add',id:id},function(carts) {
+    $.get("./ajax/cart.php",{action:'add',id:id},function(carts) {
         carts = JSON.parse(carts);
         if(carts.status ==0) {
             alert(carts.message);
@@ -37,7 +37,7 @@ function addListProductToCart(products =[]) {
 }
 
 function removeProductFromCart(index) {
-    $.get("http://localhost/food-web/ajax/cart.php",{action:'remove',index:index},function(carts) {
+    $.get("./ajax/cart.php",{action:'remove',index:index},function(carts) {
         carts = JSON.parse(carts);
         if(carts.status ==0) {
             alert(carts.message);

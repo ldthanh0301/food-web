@@ -100,7 +100,7 @@
         });
         function handleRemoveProductFromCart(index) {
             // xóa sản phẩm
-            $.get("http://localhost/food-web/ajax/cart.php",{action:'remove',index:index},function(carts) {
+            $.get("./ajax/cart.php",{action:'remove',index:index},function(carts) {
                 let root= $('#table_list_item');
                 carts = JSON.parse(carts);
                 if(carts.status ==0) {
@@ -118,7 +118,7 @@
             let index = e.dataset.index;
             let quantity = e.value;
             
-            $.get('http://localhost/food-web/ajax/cart.php',{action:'update',index:index,quantity:quantity},function(data) {
+            $.get('./ajax/cart.php',{action:'update',index:index,quantity:quantity},function(data) {
                 $('#result-fetch-cart').html(data);
                 // location.reload();
             })
