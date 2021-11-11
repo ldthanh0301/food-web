@@ -5,12 +5,11 @@ function addToCart(id) {
             alert(carts.message);
         }
         else {
-            addListProductToCart(carts)
+            showCartInHeader(carts.products)
         }
-
     })
 }
-function addListProductToCart(products =[]) {
+function showCartInHeader(products =[]) {
     $("#notification-add-cart").html(products.length);
     if(!products){
         $("#cart-list-product").html(`<div class="cart_item_null">Giỏ hàng đang trống</div>`);
@@ -36,26 +35,29 @@ function addListProductToCart(products =[]) {
     $("#cart-list-product").html(listProucts.join('')) 
 }
 
-function removeProductFromCart(index) {
+function removeProductFromCart(index,callback=null,root=null) {
     $.get("./ajax/cart.php",{action:'remove',index:index},function(carts) {
         carts = JSON.parse(carts);
-        if(carts.status ==0) {
-            alert(carts.message);
-            return 0
-        }
-        if (carts.length ==0) {
-            console.log(carts)
+        if (carts.products.length ==0) {
+            //hiển thị giỏi hàng trên header
             $("#cart-list-product").html(`<div class="cart_item_null">Giỏ hàng đang trống</div>`);
+            // hiển thị giỏi hàng ở view hiện tại
+            if (callback && root) {
+                callback(carts.products,root)
+            }
             return 0
         }
-        $("#cart-list-product").html(carts.length);
-        addListProductToCart(carts)
+        // hiển thị 
+        showCartInHeader(carts.products)
+        if (callback && root) {
+            callback(carts.products,root)
+        }
         return carts;
     })
 }
 
 function displayCarts(products,root) {
-    if (!products) {
+    if (products.length ==0) {
         root.html(`<div class="cart_item_null">Giỏ hàng đang trống</div>`)
         return
     }
@@ -71,7 +73,7 @@ function displayCarts(products,root) {
                         </div>
                     </td>
                     <td class="cart--quantity table-data-cart">
-                        <input type="number" value="${product.quantity}" name="quantity" data-index="<?${index}" onblur="calTotalPrice(this)" class="quantity-product-cart"  autocomplete = "off" min="1">
+                        <input type="number" value="${product.quantity}" name="quantity" data-index="${index}" onblur="calTotalPrice(this)" class="quantity-product-cart"  autocomplete = "off" min="1">
                     </td>
                     <td class="cart--price table-data-cart">
                         <p>${product.price.toLocaleString()}</p>

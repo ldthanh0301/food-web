@@ -95,14 +95,7 @@
         $product =$Product->detail($MSHH);
         $images = $Product->getImages($MSHH);
     }
-    // lấy số lượng giỏ hàng navbar
-    $count=0;
-    if(isset($_SESSION['cart'])){
-        $count = count($_SESSION['cart']);
-    }
-    else{
-        $count = 0;
-    }
+   
 ?>
 <!DOCTYPE html>
 <html lang="en">

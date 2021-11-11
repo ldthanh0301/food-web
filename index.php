@@ -9,14 +9,14 @@
     $products =$result->fetch_all(MYSQLI_ASSOC);
     
     //cart count product
-    $count=0;
-    if(isset($_SESSION['cart'])){
-        $count = count($_SESSION['cart']);
-    }
-    else{
-        $count = 0;
-        $_SESSION['cart']=[];
-    }
+    // $count=0;
+    // if(isset($_SESSION['cart'])){
+    //     $count = count($_SESSION['cart']);
+    // }
+    // else{
+    //     $count = 0;
+    //     $_SESSION['cart']=[];
+    // }
  
 ?>
 <!DOCTYPE html>
@@ -97,54 +97,6 @@
                     </div>
                 </div>
                 <hr>
-                <!-- socials activity -->
-                <!-- <div class="main-content">
-                    <a class="main-content__link mb-4" href="#"><i class="fas fa-sync-alt"></i>Xem thêm nhiều tin khác</a>
-                    <img  class="main-content__img img-fluid mb-3" src="./assets/img/socials/intagram.jpg" alt="ảnh">
-                    <div class="row row-sm mb-2">
-                        <div class="col-2 col-sm">
-                            <img class="img-fluid" src="./assets/img/products//vuong/hinh4.jpg" alt="ảnh">
-                        </div>
-                        <div class="col-2 col-sm">
-                            <img class="img-fluid" src="./assets/img/products/vuong/hinh8.jpg" alt="ảnh">
-                        </div>
-                        <div class="col-2 col-sm">
-                            <img class="img-fluid" src="./assets/img/products/vuong/hinh3.jpg" alt="ảnh">
-                        </div>
-                        <div class="col-2 col-sm">
-                            <img class="img-fluid" src="./assets/img/products/vuong/hinh4.jpg" alt="ảnh">
-                        </div>
-                        <div class="col-2 col-sm">
-                            <img class="img-fluid" src="./assets/img/products/vuong/hinh5.jpg" alt="ảnh">
-                        </div>
-                        <div class="col-2 col-sm">
-                            <img class="img-fluid" src="./assets/img/products/vuong/hinh6.jpg" alt="ảnh">
-                        </div>
-                    </div>
-                    <div class="row row-sm mb-2">
-                        <div class="col-2 col-sm">
-                            <img class="img-fluid" src="./assets/img/products//vuong/hinh4.jpg" alt="ảnh">
-                        </div>
-                        <div class="col-2 col-sm">
-                            <img class="img-fluid" src="./assets/img/products/vuong/hinh8.jpg" alt="ảnh">
-                        </div>
-                        <div class="col-2 col-sm">
-                            <img class="img-fluid" src="./assets/img/products/vuong/hinh3.jpg" alt="ảnh">
-                        </div>
-                        <div class="col-2 col-sm">
-                            <img class="img-fluid" src="./assets/img/products/vuong/hinh4.jpg" alt="ảnh">
-                        </div>
-                        <div class="col-2 col-sm">
-                            <img class="img-fluid" src="./assets/img/products/vuong/hinh5.jpg" alt="ảnh">
-                        </div>
-                        <div class="col-2 col-sm">
-                            <img class="img-fluid" src="./assets/img/products/vuong/hinh6.jpg" alt="ảnh">
-                        </div>
-                    </div>
-                </div> -->
-                <!-- End:Main content -->
-            </div>
-
             <!-- slider move with these image -->
             <div class="new-arrival">
                 <div class="new-arrival-wrapper">
@@ -204,6 +156,7 @@
     </script>
     <!-- main js -->
     <script src="./assets/js/main.js"></script>
+    
     <script type="text/javascript">
         $('.slider-arrival').slick({
             autoplay: true,

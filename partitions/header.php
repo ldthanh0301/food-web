@@ -1,4 +1,9 @@
-<?php if (!isset($_SESSION)) session_start() ?>
+<?php 
+        if (!isset($_SESSION)) session_start() ;
+        if(!isset($_SESSION['cart'])) {
+            $_SESSION['cart'] = (object) array('totalPrice'=>0, 'products'=>[]);
+        }
+?>
 <header id="header">
             <div class="header-wrapper">
                 <div class="container">
@@ -33,17 +38,24 @@
                                     <a href="shoppingCart.php" class="header-option__item__link cart-nav-bar">
                                         <i class="header-option__item__icon fas fa-shopping-bag"></i>
                                         <div id="notification-add-cart">
-                                            <p><?php echo $count ?></p>
+                                            <p>
+                                                <?php 
+                                                    if (!isset($_SESSION['cart']->products)) 
+                                                        echo '0';
+                                                    else  
+                                                        echo count($_SESSION['cart']->products);
+                                                ?></p>
                                         </div>
                                     </a>
+                                    <!-- Giỏ hàng -->
                                     <div class="cart">
                                         <ul id="cart-list-product"  class="cart_list">
                                             <?php 
-                                                if (count($_SESSION['cart']) ==0) {
+                                                if (count($_SESSION['cart']->products) ==0) {
                                                     echo "<div class=\"cart_item_null\">Giỏ hàng đang trống</div>";
                                                 } else {
                                                     $index = 0;
-                                                    foreach($_SESSION['cart'] as $cartItem) {
+                                                    foreach($_SESSION['cart']->products as $cartItem) {
                                             ?>   
                                                     <li class="cart_item">
                                                         <a href="#" class="cart_link">
@@ -68,6 +80,7 @@
                                             <a href="./shoppingCart.php" class="btn btn-sm btn-danger float-right">Chi tiết giỏ hàng</a>
                                         </div>
                                     </div>
+                                    <!-- Giỏ hàng -->
                                 </li>
                                
                                 <li class="dropdown header-option__item">

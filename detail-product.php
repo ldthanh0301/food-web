@@ -8,13 +8,6 @@
         $product =$Product->detail($id);
         $images = $Product->getImages($id);
     }
-    $count=0;
-    if(isset($_SESSION['cart'])){
-        $count = count($_SESSION['cart']);
-    }
-    else{
-        $count = 0;
-    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -97,7 +90,7 @@
                                     </div>
                                     <div>
                                         <button class="btn btn-danger" data-dismiss="modal">Hủy</button>
-                                        <a href="./order.php?id=<?php echo $product['MSHH']?>"class="btn btn-primary">Mua ngay</a>
+                                        <a href="./orderCart.php?action=item&MSHH=<?php echo $product['MSHH'] ?>"class="btn btn-primary">Mua ngay</a>
                                     </div>
                                 </div>
                             </div>

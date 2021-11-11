@@ -9,9 +9,9 @@
     </thead>
     <tbody id="table_list_item">
         <?php 
-        if(!empty($_SESSION['cart'])){
+        if(!empty($_SESSION['cart']->products)){
             $index=0;
-            foreach($_SESSION['cart'] as $product){ 
+            foreach($_SESSION['cart']->products as $product){ 
         ?>
         <tr>
             <td class="cart--product">
@@ -24,7 +24,7 @@
                 </div>
             </td>
             <td class="cart--quantity table-data-cart">
-                <input type="number" value="<?php echo $product['quantity'] ?>" name="quantity" data-index="<?php echo $index?>" onblur="calTotalPrice(this)" class="quantity-product-cart"  autocomplete = "off" min="1">
+                <input type="number" value="<?php echo $product['quantity'] ?>" name="quantity" data-index="<?php echo $index?>" onchange="calTotalPrice(this)" class="quantity-product-cart"  autocomplete = "off" min="1">
             </td>
             <td class="cart--price table-data-cart">
                 <p><?php echo number_format($product['price'])?></p>
@@ -42,6 +42,4 @@
         }
         ?>
     </tbody>
-
-
 </table>

@@ -40,7 +40,11 @@ class Customer
     if(!$result) {
       return 0;
     }
-    return $id;
+    $soDC =$this->insertAddress($id,$address);
+    if (!$soDC) {
+      return 0;
+    }
+    return (object)['mskh'=>$id, "soDC"=>$soDC];
   }
   // insert địa chỉ
   function insertAddress($id,$address) {

@@ -1,12 +1,12 @@
 <?php
     session_start();
-    $count=0;
-    if(isset($_SESSION['cart'])){
-        $count = count($_SESSION['cart']);
-    }
-    else{
-        $count = 0;
-    }
+    // $count=0;
+    // if(isset($_SESSION['cart'])){
+    //     $count = count($_SESSION['cart']);
+    // }
+    // else{
+    //     $count = 0;
+    // }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -42,7 +42,7 @@
             ?>      
         </div>
         <hr>
-        <button class="btn btn-danger btn-lg float-right">Đặt hàng </button>     
+        <a href="./orderCart.php?action=cart" class="btn btn-danger btn-lg float-right">Đặt hàng </a>     
         <div class="clearfix mb-4"></div>     
     </div>
 
@@ -103,24 +103,20 @@
             $.get("./ajax/cart.php",{action:'remove',index:index},function(carts) {
                 let root= $('#table_list_item');
                 carts = JSON.parse(carts);
-                if(carts.status ==0) {
-                    alert(carts.message);
-                    return 0
-                }
                 // chỉ lại giỏi hàng TRên header 
-                addListProductToCart(carts)
+                showCartInHeader(carts.products)
                 // hiển thị giỏi hàng chính
-                displayCarts(carts,root);
+                displayCarts(carts.products,root);
             })
         }
         function calTotalPrice(e){
-            console.log(e.dataset.index)
             let index = e.dataset.index;
-            let quantity = e.value;
-            
-            $.get('./ajax/cart.php',{action:'update',index:index,quantity:quantity},function(data) {
-                $('#result-fetch-cart').html(data);
-                // location.reload();
+            let quantity = parseInt(e.value);
+            $.get('./ajax/cart.php',{action:'update',index:index,quantity:quantity},function(carts) {
+                let root= $('#table_list_item');
+                carts = JSON.parse(carts);
+                displayCarts(carts.products,root);
+
             })
         }
 

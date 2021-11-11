@@ -28,11 +28,11 @@ class Order
     return $result;
   }
   
-  public function insertOrder($MSKH,$MSNV=null) {
+  public function insertOrder($MSKH, $TongTien=0, $MaDC=null,$MSNV=null) {
     if ($MSNV==null) {
-      $query = "INSERT INTO `dathang`(`MSKH`) VALUES ('$MSKH')";
+      $query = "INSERT INTO `dathang`(`MSKH`,`TongTien`,`MaDC`) VALUES ('$MSKH',$TongTien,$MaDC)";
     }else {
-      $query = "INSERT INTO `dathang`(`MSKH`,`MSNV`) VALUES ('$MSKH', '$MSNV')";
+      $query = "INSERT INTO `dathang`(`MSKH`,`TongTien`,`MaDC`,`MSNV`) VALUES ('$MSKH', $TongTien,$MaDC,'$MSNV')";
     }
     
     $result = $this->con->query($query);
