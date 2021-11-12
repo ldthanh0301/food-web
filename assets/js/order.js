@@ -4,10 +4,14 @@ function handleChangeQuantity(e) {
     let quantity = parseInt(e.value);
     let price = parseInt(e.dataset.price);
     let isCartOrder = location.search.split('&').includes('?action=cart');
-    let maxQuantity = e.max;
-    if (quantity > maxQuantity) {
+    let maxQuantity = parseInt(e.max);
+    if (quantity > maxQuantity ) {
         e.value = maxQuantity;
         quantity = maxQuantity;
+    }
+    if (quantity< 1){
+        e.value = 1;
+        quantity =1;
     }
     if (isCartOrder){
         $.get('./ajax/cart.php',{action:'update',index:index,quantity:quantity},function(carts) {
