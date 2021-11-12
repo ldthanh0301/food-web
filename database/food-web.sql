@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 01, 2021 at 07:13 PM
+-- Generation Time: Nov 12, 2021 at 03:17 PM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 8.0.11
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `yame_shop`
+-- Database: `food-web`
 --
 
 -- --------------------------------------------------------
@@ -36,17 +36,6 @@ CREATE TABLE `chitietdathang` (
   `MaDC` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `chitietdathang`
---
-
-INSERT INTO `chitietdathang` (`SoDonDH`, `MSHH`, `SoLuong`, `GiaDatHang`, `GiamGia`, `MaDC`) VALUES
-(31, 'P6df64d2fb', 1, 540000, 0, 30),
-(33, 'P6df64d2fb', 1, 540000, 0, 31),
-(39, 'P6df64d2fb', 1, 540000, 0, 26),
-(41, 'P6df64d2fb', 1, 540000, 0, 27),
-(43, 'Pa53893565', 1, 540000, 0, 18);
-
 -- --------------------------------------------------------
 
 --
@@ -58,30 +47,10 @@ CREATE TABLE `dathang` (
   `MSKH` varchar(10) NOT NULL,
   `MSNV` varchar(10) DEFAULT NULL,
   `NgayDH` timestamp NOT NULL DEFAULT current_timestamp(),
-  `TrangThaiDH` tinyint(4) NOT NULL
+  `TrangThaiDH` tinyint(4) NOT NULL,
+  `TongTien` int(11) NOT NULL,
+  `MaDC` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `dathang`
---
-
-INSERT INTO `dathang` (`SoDonDH`, `MSKH`, `MSNV`, `NgayDH`, `TrangThaiDH`) VALUES
-(28, 'KHf7ded7a', NULL, '2021-10-27 17:05:42', 0),
-(29, 'KHf7ded7a', NULL, '2021-10-27 17:05:42', 0),
-(30, 'KH875ccd1', NULL, '2021-10-27 17:07:40', 0),
-(31, 'KH878f9d4', NULL, '2021-10-27 17:08:31', 0),
-(32, 'KHf7ded7a', NULL, '2021-10-27 17:09:19', 0),
-(33, 'KHf7ded7a', NULL, '2021-10-27 17:09:19', 0),
-(34, 'KHf7ded7a', NULL, '2021-10-27 17:09:35', 0),
-(35, 'KHf7ded7a', NULL, '2021-10-27 17:09:35', 0),
-(36, 'KHf7ded7a', NULL, '2021-10-27 17:11:03', 0),
-(37, 'KHf7ded7a', NULL, '2021-10-27 17:11:03', 0),
-(38, 'KHf7ded7a', NULL, '2021-10-27 17:11:17', 0),
-(39, 'KHf7ded7a', NULL, '2021-10-27 17:11:17', 0),
-(40, 'KHf7ded7a', NULL, '2021-10-28 07:45:38', 0),
-(41, 'KHf7ded7a', NULL, '2021-10-28 07:45:38', 0),
-(42, 'KHf7ded7a', NULL, '2021-10-30 17:08:33', 0),
-(43, 'KHf7ded7a', NULL, '2021-10-30 17:08:33', 0);
 
 -- --------------------------------------------------------
 
@@ -100,27 +69,7 @@ CREATE TABLE `diachikh` (
 --
 
 INSERT INTO `diachikh` (`MaDC`, `DiaChi`, `MSKH`) VALUES
-(11, '123 Trần Văn Hoài, Ninh Kiều', 'KH7d2c986'),
-(12, '123 Trần Văn Hoài, Ninh Kiều', 'KH7dfa672'),
-(13, 'Nhơn mỹ', 'KH7f3a400'),
-(14, 'Nhơn mỹ', 'KH7f84848'),
-(15, '123 Trần Văn Hoài, Ninh Kiều', 'KH80ee2a5'),
-(16, 'Nhơn mỹ', 'KH816eb38'),
-(17, '', 'KHf1b10cc'),
-(18, '12 Trần Văn Hoài, Ninh Kiều', 'KHf7ded7a'),
-(19, '', 'KHf8282f4'),
-(20, '12 Trần Văn Hoài, Ninh Kiều', 'KH5d5501b'),
-(21, '12 Trần Văn Hoài, Ninh Kiều', 'KH5d58179'),
-(22, '12 Trần Văn Hoài, Ninh Kiều', 'KH5d76a0b'),
-(23, '12 Trần Văn Hoài, Ninh Kiều', 'KH5d9daa9'),
-(24, '134, nhơn lộc, nhơn mỹ , chợ mới , an giang', 'KHf7ded7a'),
-(25, '134, nhơn lộc, nhơn mỹ , chợ mới , an giang', 'KH857d627'),
-(26, '134, nhơn lộc, nhơn mỹ , chợ mới , an giang', 'KHf7ded7a'),
-(27, '123 tịnh biên', 'KHf7ded7a'),
-(28, 'ninh kiều ,cần thơ', 'KHf7ded7a'),
-(29, 'Nhơn mỹ', 'KH875ccd1'),
-(30, 'Nhơn mỹ', 'KH878f9d4'),
-(31, 'long an', 'KHf7ded7a');
+(45, 'Nhơn mỹ', 'KH76f038b');
 
 -- --------------------------------------------------------
 
@@ -142,11 +91,14 @@ CREATE TABLE `hanghoa` (
 --
 
 INSERT INTO `hanghoa` (`MSHH`, `TenHH`, `MoTa`, `Gia`, `SoLuongHang`, `MaLoaiHang`) VALUES
-('P6df64d2fb', 'Áo Thun Cổ Tròn Đơn Giản M18 ', 'Chất liệu: Cotton 2 chiều\r\nThành phần: 100% Cotton\r\n- Thân thiện\r\n- Thấm hút thoát ẩm\r\n- Mềm mại\r\n- Kiểm soát mùi\r\n- Điều hòa nhiệt\r\n+ Họa tiết thêu kỹ thuật số\r\n- HDSD:\r\n+ Nên giặt chung với sản phẩm cùng màu\r\n+ Không dùng thuốc tẩy hoặc xà phòng có tính tẩy mạnh\r\n+ Nên phơi trong bóng râm để giữ sp bền màu', 185000, 100, 1),
-('Pa53893565', 'Áo Thun Cổ Tròn Đơn Giản M14', 'Chất liệu: Cotton 4 Chiều\r\nThành phần: 95% cotton 5% spandex\r\n- Thoáng mát\r\n- Hút ẩm tốt\r\n- Co dãn tốt\r\n+ Họa tiết in bóng', 155000, 100, 1),
-('Pa53d9601d', 'Áo Thun Cổ Tròn Đơn Giản M11', 'Chất liệu: Cotton 2 chiều\r\nThành phần: 100% Cotton\r\n- Co dãn 2 chiều\r\n- Thấm hút mồ hôi tốt mang lại cảm giác thoáng mát\r\nIn dẻo + Thêu đắp vải phản quang', 145000, 120, 1),
-('Pa5412c711', 'Áo Thun Cổ Tròn Đơn Giản M01', 'Chất liệu: Cotton 100% (2C)\r\nVới thành phần 100% từ sợi thiên nhiên, áo thun mang lại cảm giác thoáng mát, thấm hút mồ hôi tốt.\r\n\r\nThiết kế:\r\n- Kiểu dáng Raglan thời trang\r\n- Có túi áo tiện lợi\r\n- Tay và túi phối dây xương cá cotton 1.5cm\r\n- In dẻo thông điệp túi áo\r\n- Form áo cải tiến với 3 size M - L - XL\r\n(Thông số chi tiết ở cuối trang)\r\n- Màu sắc: 8 màu', 185000, 180, 1),
-('Pa546528f3', 'Áo Khoác Classic Đơn Giản Thần Cổ Đại Anubis M1', 'Chất liệu: Vải Dù\r\nThành phần: 100% poly\r\n- Chống tia UV\r\n- Cản gió\r\n- Chống bụi\r\n- Ít nhăn\r\n- Nhanh khô\r\n- Bền màu tốt\r\n- Chống thấm nước lên nhiều giờ liền\r\n- Bảo vệ chống tác động môi trường\r\n+ Logo Anubis in cao\r\n+ Dây luồng nón phối màu cam nổi bật\r\n+ Túi trong tiện dụng\r\n+ Nón áo có mũi che không bị bắt nắng\r\n+ Cổ tay áo có nút bấm cố định phù hợp với tay người dùng\r\n+ Reverse Coil Zipper\r\n(Những chiếc khoá túi này có bề mặt ngoài dẹp, phẳng trong khi răng khoá thì ở trong)', 320000, 1200, 8);
+('Pe4f551f05', '2 MIẾNG GÀ GIÒN', '2 MIẾNG GÀ GIÒN', 60, 10000, 11),
+('Pe4f878865', '4 MIẾNG GÀ GIÒN', '4 MIẾNG GÀ GIÒN', 116000, 1000000, 11),
+('Pe4fe41042', '6 MIẾNG GÀ GIÒN', '6 MIẾNG GÀ GIÒN', 174000, 100000, 11),
+('Pe5021e192', '01 MIẾNG GÀ GIÒN VUI VẺ + 01 MỲ Ý SỐT BÒ BẰM + 01 NƯỚC NGỌT (VỪA)', '01 MIẾNG GÀ GIÒN VUI VẺ + 01 MỲ Ý SỐT BÒ BẰM + 01 NƯỚC NGỌT (VỪA)', 65000, 10000, 12),
+('Pe504d4cd8', 'MÌ Ý SỐT BÒ BẰM LỚN + 2 MIẾNG GÀ KHÔNG XƯƠNG + KHOAI TÂY VỪA + NƯỚC NGỌT', 'MÌ Ý SỐT BÒ BẰM LỚN + 2 MIẾNG GÀ KHÔNG XƯƠNG + KHOAI TÂY VỪA + NƯỚC NGỌT', 75000, 5000, 12),
+('Pe5078cde6', 'MÌ Ý SỐT BÒ BẰM', 'MÌ Ý SỐT BÒ BẰM', 30000, 3000, 12),
+('Pe50c03aeb', 'SANDWICH GÀ GIÒN + NƯỚC NGỌT', 'SANDWICH GÀ GIÒN + NƯỚC NGỌT', 30000, 6000, 10),
+('Pe50f60a05', 'SANDWICH GÀ GIÒN', 'SANDWICH GÀ GIÒN', 25000, 4000, 10);
 
 -- --------------------------------------------------------
 
@@ -165,11 +117,14 @@ CREATE TABLE `hinhhanghoa` (
 --
 
 INSERT INTO `hinhhanghoa` (`MaHinh`, `TenHinh`, `MSHH`) VALUES
-(9, 'image6176df64d34c7.jpg', 'P6df64d2fb'),
-(30, 'image617a538935cfc.jpg', 'Pa53893565'),
-(31, 'image617a53d960873.jpg', 'Pa53d9601d'),
-(32, 'image617a5412c78bc.jpg', 'Pa5412c711'),
-(33, 'image617a54652991c.jpg', 'Pa546528f3');
+(34, 'image618e4f551fc0f.png', 'Pe4f551f05'),
+(35, 'image618e4f878914e.png', 'Pe4f878865'),
+(36, 'image618e4fe410bc8.png', 'Pe4fe41042'),
+(37, 'image618e5021e219a.png', 'Pe5021e192'),
+(38, 'image618e504d4d41a.png', 'Pe504d4cd8'),
+(39, 'image618e5078ce58b.png', 'Pe5078cde6'),
+(40, 'image618e50c03b539.png', 'Pe50c03aeb'),
+(41, 'image618e50f60a7c6.jpg', 'Pe50f60a05');
 
 -- --------------------------------------------------------
 
@@ -191,23 +146,7 @@ CREATE TABLE `khachhang` (
 --
 
 INSERT INTO `khachhang` (`MSKH`, `HoTenKH`, `SoDienThoai`, `Email`, `username`, `password`) VALUES
-('', 'Lê Duy Thanh', '0333618825', 'Thanh123@gmail.com', '', NULL),
-('KH5d5501b', 'Trần Thị Mỹ Tiên', '0333618825', 'mytien@gmail.com', NULL, NULL),
-('KH5d58179', 'Trần Thị Mỹ Tiên', '0333618825', 'mytien@gmail.com', NULL, NULL),
-('KH5d76a0b', 'Trần Thị Mỹ Tiên', '0333618825', 'mytien@gmail.com', NULL, NULL),
-('KH5d9daa9', 'Trần Thị Mỹ Tiên', '0333618825', 'mytien@gmail.com', NULL, NULL),
-('KH7d2c986', 'Lê Duy Thanh', '0333618825', 'Thanh123@gmail.com', 'ldthanh2', '827ccb0eea8a706c4c34a16891f84e7b'),
-('KH7dfa672', 'Tiên', '0333618825', 'Thanh123@gmail.com', NULL, NULL),
-('KH7f3a400', 'Thanh', '0333618825', 'Thanh123@gmail.com', NULL, NULL),
-('KH7f84848', 'Than', '1234567', 'Thanh123@gmail.com', NULL, NULL),
-('KH80ee2a5', 'Lê Duy Thanh', '0333618825', 'Thanh123@gmail.com', NULL, NULL),
-('KH816eb38', 'Thanh', '0333618825', 'Thanh123@gmail.com', NULL, NULL),
-('KH857d627', 'Trần Thị Mỹ Tiên', '0333618825', 'mytien@gmail.com', NULL, NULL),
-('KH875ccd1', 'Thanh', '0333618825', 'Thanh123@gmail.com', NULL, NULL),
-('KH878f9d4', 'Thanh', '0333618825', 'Thanh123@gmail.com', NULL, NULL),
-('KHf1b10cc', '', '', '', NULL, NULL),
-('KHf7ded7a', 'Trần Thị Mỹ Tiên', '0333618825', 'mytien@gmail.com', 'mytien', '827ccb0eea8a706c4c34a16891f84e7b'),
-('KHf8282f4', '', '', '', NULL, NULL);
+('KH76f038b', 'Thanh', '0333618825', 'Thanh123@gmail.com', 'ldthanh2', '827ccb0eea8a706c4c34a16891f84e7b');
 
 -- --------------------------------------------------------
 
@@ -225,12 +164,10 @@ CREATE TABLE `loaihanghoa` (
 --
 
 INSERT INTO `loaihanghoa` (`MaLoaiHang`, `TenLoaiHang`) VALUES
-(1, 'Áo thun'),
-(2, 'Quần Jean'),
-(5, 'Áo sơ mi'),
-(6, 'Quần short'),
-(7, 'Quần tây'),
-(8, 'Áo khoác');
+(10, 'Burger & Cơm'),
+(11, 'Gà Chiên Giòn'),
+(12, 'Mì Ý'),
+(13, 'Món Tráng Miệng');
 
 -- --------------------------------------------------------
 
@@ -277,7 +214,8 @@ ALTER TABLE `chitietdathang`
 ALTER TABLE `dathang`
   ADD PRIMARY KEY (`SoDonDH`),
   ADD KEY `MSNV_DatHang` (`MSNV`),
-  ADD KEY `MSKH_DatHang` (`MSKH`);
+  ADD KEY `MSKH_DatHang` (`MSKH`),
+  ADD KEY `MaDC_DatHang` (`MaDC`);
 
 --
 -- Indexes for table `diachikh`
@@ -328,25 +266,25 @@ ALTER TABLE `nhanvien`
 -- AUTO_INCREMENT for table `dathang`
 --
 ALTER TABLE `dathang`
-  MODIFY `SoDonDH` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
+  MODIFY `SoDonDH` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
 
 --
 -- AUTO_INCREMENT for table `diachikh`
 --
 ALTER TABLE `diachikh`
-  MODIFY `MaDC` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `MaDC` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
 
 --
 -- AUTO_INCREMENT for table `hinhhanghoa`
 --
 ALTER TABLE `hinhhanghoa`
-  MODIFY `MaHinh` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+  MODIFY `MaHinh` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
 
 --
 -- AUTO_INCREMENT for table `loaihanghoa`
 --
 ALTER TABLE `loaihanghoa`
-  MODIFY `MaLoaiHang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `MaLoaiHang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- Constraints for dumped tables
@@ -365,7 +303,8 @@ ALTER TABLE `chitietdathang`
 --
 ALTER TABLE `dathang`
   ADD CONSTRAINT `MSKH_DatHang` FOREIGN KEY (`MSKH`) REFERENCES `khachhang` (`MSKH`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `MSNV_DatHang` FOREIGN KEY (`MSNV`) REFERENCES `nhanvien` (`MSNV`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `MSNV_DatHang` FOREIGN KEY (`MSNV`) REFERENCES `nhanvien` (`MSNV`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `MaDC_DatHang` FOREIGN KEY (`MaDC`) REFERENCES `diachikh` (`MaDC`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `diachikh`
