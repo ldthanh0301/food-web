@@ -281,7 +281,10 @@
 }
 .product-card {
     display: inline-block;
-   margin-bottom: 8px;
+    margin-bottom: 8px;
+    border:2px dashed #e98050;
+    height: 550px;
+    padding: 15px;
 }
 .product-card__img {
     display: block;
@@ -291,6 +294,12 @@
     display: flex;
     place-content: space-between;
     padding: 5px;
+}
+.product-card__name {
+    text-align: center;
+    color: #fd5949;
+    font-size: 1.2rem;
+    font-weight: 600;
 }
 .product-card__price {
     font-size: 1.2rem;

@@ -20,7 +20,7 @@ function showCartInHeader(products =[]) {
         return `
         <li class="cart_item">
             <a href="#" class="cart_link">
-                <img src="./assets/img/products/hinh6.jpg" class="cart_product_image"/>
+                <img src="./products-img/${product.images[0].TenHinh}" class="cart_product_image"/>
                 <div class="cart_product">
                     <span class="cart_product_name">${product.name}</span>
                     <span class="cart_product_price">${product.price}đ</span>

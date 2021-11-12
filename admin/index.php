@@ -1,3 +1,6 @@
+<?php
+    require_once './auth/auth.php';
+?>
 <?php 
     require_once '../database/database.php';
     

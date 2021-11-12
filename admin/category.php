@@ -1,23 +1,19 @@
 <?php
     require_once '../database/database.php';
-    if (!isset($_SESSION['role']) || $_SESSION['role'] < 2) {
-        header("Location: ./404.php");
-        die();
-    }
+    require_once "./auth/auth.php";
 ?>
 <?php
-    require_once './controller/upload.php';
-
     $db = Database::getInstance();
     $con = $db->connectDB;
     //lấy loai hàng hóa
     $result = $con->query('select * from loaihanghoa');
     $categorys =$result->fetch_all(MYSQLI_ASSOC);
     
-    // xóa sản phẩm 
-    if ($_SERVER["REQUEST_METHOD"] === "GET" && isset($_GET['action'])&& $_GET['action'] ==='delete') { 
+    // xóa danh mục sản phẩm 
+    if (isset($_GET['action']) && $_GET['action'] ==='delete') { 
         $id = $_GET['id'];
         $result = $con->query("delete from loaihanghoa where MaLoaiHang = $id");
+       
         header("Location: ./category.php");
         die();
     }

@@ -16,11 +16,11 @@
         //staff != null thì set session
         if ($customer) {                   
             $_SESSION['MSKH'] = $customer['MSKH'];
-            $_SESSION['role'] = 0;
             $_SESSION['timeout'] = time();
             $_SESSION['username'] = $customer['username'];
+            $_SESSION['sess_user'] =  session_id();
             $_SESSION['HoTenKH'] = $customer['HoTenKH'];
-            session_id();
+           
             header('Location: ./index.php');
         }else {
             $msg = 'Sai tài khoản hoặc mật khẩu';

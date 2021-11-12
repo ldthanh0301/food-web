@@ -89,10 +89,11 @@
                                         <span><?php if(isset($_SESSION['HoTenKH'])) echo $_SESSION['HoTenKH'];?></span>
                                     </button>
                                     <div class="dropdown-menu" style="transform: translate3d(-30px, 40px, 0px)" aria-labelledby="dropdownMenuButton">
-                                        <a class="dropdown-item" href="editprofile.php">Thông tin tài khoản</a>
-                                        <hr>
+                                        
                                         <?php
-                                            if(isset($_SESSION['username'])) {
+                                            if(isset($_SESSION['sess_user'])) {
+                                                echo '<a class="dropdown-item" href="editprofile.php">Thông tin tài khoản</a>';
+                                                echo "<hr>";
                                                 echo "<a class='dropdown-item' href='./logout.php'>Đăng xuất</a>";
                                             } else {
                                                 echo "<a class='dropdown-item' href='./login.php'>Đăng nhập</a>";

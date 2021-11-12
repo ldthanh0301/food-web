@@ -7,7 +7,6 @@
 ?>
 <?php
     require_once '../database/database.php';
-    require_once './controller/upload.php';
     require_once '../models/Product.php';
     $Product = new Product();
 

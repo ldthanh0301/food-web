@@ -34,13 +34,14 @@
                     <div class="list-products">
                         <div class="row">
                             <?php foreach($products as $product) { ?>
-                            <div class="col-3">
+                            <div class="col-4">
                                 <div  class="product-card">
                                     <a href="./detail-product.php?id=<?php echo $product['MSHH']?>">
                                         <img class="product-card__img" src="./products-img/<?php echo $product['TenHinh'] ?>" alt="<?php echo $product['TenHH'] ?>" >
                                     </a>
+                                    <p class="product-card__name"><?php echo $product['TenHH']?></p>
                                     <div class="product-card__option">
-                                        <span class="product-card__price"><?php echo $product['Gia'] ?></span>
+                                        <span class="product-card__price"><?php echo number_format($product['Gia'])?></span>
                                         <button class="btn btn-sm btn-danger" onclick="addToCart('<?php echo $product['MSHH']?>')" >Thêm vào giỏ</button>
                                     </div>
                                 </div>

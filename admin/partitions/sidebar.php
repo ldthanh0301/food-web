@@ -19,21 +19,9 @@
                         </a>
                     </li>
                     <li>
-                        <a class="sidebar__link" href="#">
-                            <i class="sidebar__icon fas fa-table"></i>
-                            <span>Bảng hàng hóa</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="sidebar__link" href="#">
-                            <i class="sidebar__icon fas fa-globe"></i>
-                            <span>Liên kết mạng xã hội</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="sidebar__link" href="#">
+                        <a class="sidebar__link" href="./category.php">
                             <i class="sidebar__icon fas fa-cog"></i>
-                            <span>Cài đặt</span>
+                            <span>Danh mục sản phẩm</span>
                         </a>
                     </li>
                 </ul>

@@ -58,10 +58,10 @@
                             </div>
                 </div>
     </div>
-    
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js">       
-    </script>
-     <script type="text/javascript">
+    <!-- script -->
+    <?php include_once('./partials/scriptLink.php')?>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+    <script type="text/javascript">
         $('.slider-arrival').slick({
             autoplay: true,
             autoplaySpeed: 3000,
@@ -95,7 +95,6 @@
         }
 
     </script>
-    <!-- script -->
-    <?php include_once('./partials/scriptLink.php')?>
+    
 </body>
 </html>
