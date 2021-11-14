@@ -90,7 +90,6 @@
                 let root= $('#table_list_item');
                 carts = JSON.parse(carts);
                 displayCarts(carts.products,root);
-
             })
         }
 

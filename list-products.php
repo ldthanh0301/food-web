@@ -4,8 +4,14 @@
     $db = Database::getInstance();
     $con = $db->connectDB;
     //lấy loai hàng hóa
-    $result = $con->query('SELECT * FROM `hanghoa`as hh JOIN hinhhanghoa as hhh ON hh.MSHH = hhh.MSHH');// 
-    $products =$result->fetch_all(MYSQLI_ASSOC);
+    if (isset($_GET['MaLoaiHang'])) {
+        $MaLoaiHang =  $_GET['MaLoaiHang'];
+        $result = $con->query("SELECT * FROM `hanghoa`as hh JOIN hinhhanghoa as hhh ON hh.MSHH = hhh.MSHH JOIN loaihanghoa as lhh  on lhh.MaLoaiHang = hh.MaLoaiHang where hh.MaLoaiHang = $MaLoaiHang");// 
+        $products =$result->fetch_all(MYSQLI_ASSOC);
+    }else {
+        $result = $con->query('SELECT * FROM `hanghoa`as hh JOIN hinhhanghoa as hhh ON hh.MSHH = hhh.MSHH');// 
+        $products =$result->fetch_all(MYSQLI_ASSOC);
+    }
 
     session_start();
 ?>

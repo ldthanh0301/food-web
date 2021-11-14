@@ -1,10 +1,10 @@
 <table class="table--cart">
     <thead>
         <tr class="table--cart__row">
-            <th class="header--table w-product">Product</th>
-            <th class="header--table">Quantity</th>
-            <th class="header--table">Price</th>
-            <th class="header--table">SubTotal</th>
+            <th class="header--table w-product">Món Ăn</th>
+            <th class="header--table">Số lượng</th>
+            <th class="header--table">Giá</th>
+            <th class="header--table">Thành Tiền</th>
         </tr>
     </thead>
     <tbody id="table_list_item">

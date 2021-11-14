@@ -14,18 +14,31 @@
                         <nav class="navbar">
                             <ul class="navbar__menu">
                                 <li class="navbar__menu-item">
-                                    <a href="index.php" class="navbar__menu-item__link">Home</a>
+                                    <a href="index.php" class="navbar__menu-item__link">Trang Chủ</a>
                                 </li>
                                 
                                 <li class="navbar__menu-item navbar__menu-item--dropdown">
                                     <a href="list-products.php" class="navbar__menu-item__link">
-                                        Food
+                                        Thực đơn
                                         <i class="navbar__menu-item__icon fas fa-chevron-down"></i>
                                     </a>
+                                    <ul class="navbar-dropdown">
+                                        <?php 
+                                            $con = Database::getInstance()->connectDB;
+                                            $categorys = $con->query('select * from loaihanghoa');
+                                            foreach ($categorys as $category) {
+                                                echo "
+                                                <li  class='navbar-dropdown__item'>
+                                                    <a href='./list-products.php?MaLoaiHang=$category[MaLoaiHang]' onclick=getProducts('$category[MaLoaiHang]')  class='navbar-dropdown__item__link'>$category[TenLoaiHang]</a>
+                                                </li>
+                                                ";
+                                            }
+                                        ?>
+                                    </ul>
                                 </li>
                                 <li class="navbar__menu-item navbar__menu-item--dropdown">
                                     <a href="#" class="navbar__menu-item__link">
-                                        Blogs
+                                        Giới thiệu
                                         <i class="navbar__menu-item__icon fas fa-chevron-down"></i>
                                     </a>
                                 </li>
@@ -33,7 +46,6 @@
                         </nav>
                         <div class="header-option">
                             <ul class="header-option__list">
-                                
                                 <li class="header-option__item cart-icon" id="addcart-nav">
                                     <a href="shoppingCart.php" class="header-option__item__link cart-nav-bar">
                                         <i class="header-option__item__icon fas fa-shopping-bag"></i>
@@ -82,14 +94,12 @@
                                     </div>
                                     <!-- Giỏ hàng -->
                                 </li>
-                               
                                 <li class="dropdown header-option__item">
                                     <button class="header-option__item__link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <i class="header-option__item__icon far fa-user"></i>
                                         <span><?php if(isset($_SESSION['HoTenKH'])) echo $_SESSION['HoTenKH'];?></span>
                                     </button>
                                     <div class="dropdown-menu" style="transform: translate3d(-30px, 40px, 0px)" aria-labelledby="dropdownMenuButton">
-                                        
                                         <?php
                                             if(isset($_SESSION['sess_user'])) {
                                                 echo '<a class="dropdown-item" href="editprofile.php">Thông tin tài khoản</a>';
@@ -100,7 +110,6 @@
                                                 echo "<a class='dropdown-item' href='./register.php'>Đăng ký</a>";
                                             }
                                         ?>
-                                        
                                     </div>
                                 </li>
                             </ul>
